@@ -3,6 +3,7 @@ function login() {
     let password = $("#password").val();
     let useracc = {username, password};
     console.log(0)
+
     console.log(useracc)
     $.ajax({
         type: "Post",
@@ -10,8 +11,6 @@ function login() {
         url: "http://localhost:8080/login",
         data: JSON.stringify(useracc),
         success: function (data) {
-            alert("aaa")
-
             console.log(data)
             localStorage.setItem("token", data.token);
             localStorage.setItem("user", JSON.stringify(data));
