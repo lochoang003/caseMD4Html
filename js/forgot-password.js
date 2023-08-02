@@ -9,7 +9,7 @@ function forgotPassword() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        url: "http://localhost:8080/user/forgotPassword",
+        url: "http://localhost:8080/forgotPassword",
         data: JSON.stringify(user),
         success: function (user) {
             console.log(user.password)
