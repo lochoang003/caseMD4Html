@@ -86,11 +86,11 @@ Don’t use Winku Yet? <a href="#" title="">Take the tour</a> or <a href="#" tit
 </p>
 <div>
 <div class="form-group">\t
-  <input type="text" id="input" required="required"/>
+  <input type="text" id="username" required="required"/>
  <label class="control-label" for="input">Username</label><i class="mtrl-select"></i>
 </div>
 <div class="form-group">\t
-  <input type="password" required="required"/>
+  <input type="password" id="password" required="required"/>
  <label class="control-label" for="input">Password</label><i class="mtrl-select"></i>
 </div>
 <div class="checkbox">
