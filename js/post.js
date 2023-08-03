@@ -3,7 +3,8 @@ function getAll() {
         type: "GET",
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/posts",
         success: function (data) {
@@ -15,6 +16,7 @@ function getAll() {
     })
 }
 function  showPost(arr) {
+
     let str = "";
     for (const p of arr) {
         str += `
@@ -105,24 +107,25 @@ function  showPost(arr) {
 getAll();
 
 function create() {
+    console.log(2)
 
-    let img = $("#img").val();
-    let video = $("#video").val();
-    let createDate = $("#createDate").val();
-    let likeCount = $("#likeCount").val();
-    let commentCount = $("#commentCount").val();
-    let shareCount = $("#shareCount").val();
+    let img = $("#img").val() ;
+    let video = $("#video").val() ;
+    // let createDate = $("#createDate").val();
+    let content = $("#content").val();
 
-    let post = {img,video,createDate,likeCount,commentCount,shareCount}
 
-    }
+    let post = {img,video,content}
+
+
     $.ajax({
         type: "POST",
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
-        url: "http://localhost:8080/posts/create",
+        url: "http://localhost:8080/posts/createPost",
         data: JSON.stringify(post),
         success: function () {
             getAll();
@@ -131,3 +134,4 @@ function create() {
             console.log(err);
         }
     })
+}
