@@ -92,6 +92,8 @@ Don’t use Winku Yet? <a href="#" title="">Take the tour</a> or <a href="#" tit
 <div class="form-group">\t
   <input type="password" id="password" required="required"/>
  <label class="control-label" for="input">Password</label><i class="mtrl-select"></i>
+  <p id="error" style="color: red"></p>
+
 </div>
 <div class="checkbox">
   <label>

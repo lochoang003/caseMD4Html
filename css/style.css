@@ -691,6 +691,7 @@ header.sticky {
 }
 
 .top-area .user-img {
+    width: 50px;
     cursor: pointer;
     display: inline-block;
     vertical-align: middle;

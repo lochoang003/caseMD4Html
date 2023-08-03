@@ -16,7 +16,7 @@ function getAll() {
     })
 }
 function  showPost(arr) {
-
+    console.log(arr)
     let str = "";
     for (const p of arr) {
         str += `
@@ -25,7 +25,14 @@ function  showPost(arr) {
 <img src="${p.img}" alt="">
 </figure>
 <div class="friend-name">
-<ins><a href="time-line.html" title="">${p.fullname}</a></ins>
+
+
+
+<ins><a href="time-line.html?userAccId=${p.userAcc.id}" >${p.userAcc.fullName}</a></ins>
+<!--<ins><a class="userDetail" arr-id="${p.userAcc.id}">${p.userAcc.fullName}</a></ins>-->
+
+
+
 <span>${p.createDate}</span>
 </div>
 <div class="post-meta">
@@ -99,9 +106,13 @@ function  showPost(arr) {
 </div>
 </div>
 </div>
+
         `
+
     }
+
     document.getElementById("post").innerHTML = str;
+
 
 }
 getAll();
@@ -135,3 +146,9 @@ function create() {
         }
     })
 }
+
+
+
+
+
+
