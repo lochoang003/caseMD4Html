@@ -6,20 +6,20 @@ function showFormRegister(){
 Don’t use Winku Yet? <a href="#" title="">Take the tour</a> or <a href="#" title="">Join now</a>
 </p>
 <div>
-<div class="form-group">\t
- <input type="text" id="fullname" required="required"/>
+<div class="form-group">
+ <input type="text" id="fullname1" required="required"/>
   <label class="control-label" for="input">Full Name</label><i class="mtrl-select"></i>
 </div>
-<div class="form-group">\t
-  <input type="text" id="username" required="required"/>
+<div class="form-group">
+  <input type="text" id="username1" required="required"/>
  <label class="control-label" for="input">User Name</label><i class="mtrl-select"></i>
 </div>
-<div class="form-group">\t
-  <input type="password" id="password" required="required"/>
+<div class="form-group">
+  <input type="password" id="password1" required="required"/>
  <label class="control-label" for="input">Password</label><i class="mtrl-select"></i>
 </div>
-<div class="form-group">\t
-  <input type="email" id="email"  required="required"/>
+<div class="form-group">
+  <input type="email" id="email1"  required="required"/>
  <label class="control-label" for="input">Email</label><i class="mtrl-select"></i>
 </div>
 <div class="checkbox">
@@ -29,18 +29,23 @@ Don’t use Winku Yet? <a href="#" title="">Take the tour</a> or <a href="#" tit
 </div>
 <a href="#" title="" class="already-have">Already have an account</a>
 <div class="submit-btns">
+<button class="mtr-btn signup" type="button" onclick="showFormLogin()"><span>Back</span></button>
+
 <button class="mtr-btn signup" type="button" onclick="register()"><span>Register</span></button>
-<!--<button class="mtr-btn signup" type="button" onclick="showFormLogin()"><span>login</span></button>-->
 </div>
 </div>
     `
     document.getElementById("displayFormRegister").innerHTML = form;
 }
 function register(){
-    let username = $('#username').val();
-    let pass = $('#password').val();
-    let email = $('#email').val();
-    let fullname = $('#fullname').val();
+    let username = $('#username1').val();
+    let pass = $('#password1').val();
+    let email = $('#email1').val();
+    let fullname = $('#fullname1').val();
+    console.log(username)
+    console.log(pass)
+    console.log(email)
+    console.log(fullname)
     let acc = {};
     // Kiểm tra các trường dữ liệu nhập
     if (username !== '' && pass !== '' && email !== '' && fullname !== '') {
@@ -92,6 +97,7 @@ Don’t use Winku Yet? <a href="#" title="">Take the tour</a> or <a href="#" tit
 <div class="form-group">\t
   <input type="password" id="password" required="required"/>
  <label class="control-label" for="input">Password</label><i class="mtrl-select"></i>
+ <p id="error" style="color: red"></p>
 </div>
 <div class="checkbox">
   <label>
@@ -102,6 +108,7 @@ Don’t use Winku Yet? <a href="#" title="">Take the tour</a> or <a href="#" tit
 <div class="submit-btns">
 <button class="mtr-btn signin" type="button" onclick="login()"><span>Login</span></button>
 <button class="mtr-btn signup" type="button" onclick="showFormRegister()"><span>Register</span></button>
+
 </div>
 </div>`
     document.getElementById("loginFormContainer").innerHTML = form;

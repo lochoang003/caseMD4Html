@@ -2,9 +2,7 @@ function login() {
     let username = $("#username").val();
     let password = $("#password").val();
     let useracc = {username, password};
-    console.log(0)
 
-    console.log(useracc)
     $.ajax({
         type: "Post",
         contentType: "application/json",

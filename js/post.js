@@ -3,7 +3,9 @@ function getAll() {
         type: "GET",
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+
         },
         url: "http://localhost:8080/posts",
         success: function (data) {
@@ -36,14 +38,14 @@ function  showPost(arr) {
 <!--<ins>1.2k</ins>-->
 <!--</span>-->
 <!--</li>-->
-<li>
+<li onclick="showComment(${p.id})">
 <span class="comment" data-toggle="tooltip" title="Comments">
 <i class="fa fa-comments-o"></i>
 <ins>${p.likeCount}</ins>
 </span>
 </li>
-<li>
-<span class="like" data-toggle="tooltip" title="like">
+<li >
+<span  class="like" data-toggle="tooltip" title="like">
 <i class="ti-heart"></i>
 <ins>${p.commentCount}</ins>
 </span>
@@ -84,7 +86,7 @@ function  showPost(arr) {
 <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
 </div>
  </div>
-
+ 
 </div>
 </li>
 </ul>
@@ -97,6 +99,8 @@ function  showPost(arr) {
 </div>
 </div>
 </div>
+<div class="coment-area">
+<div id="commentP${p.id}"></div>
         `
     }
     document.getElementById("post").innerHTML = str;
@@ -113,14 +117,16 @@ function create() {
     let commentCount = $("#commentCount").val();
     let shareCount = $("#shareCount").val();
 
-    let post = {img,video,createDate,likeCount,commentCount,shareCount}
+    let post = {img, video, createDate, likeCount, commentCount, shareCount}
 
-    }
+
     $.ajax({
         type: "POST",
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+
         },
         url: "http://localhost:8080/posts/create",
         data: JSON.stringify(post),
@@ -131,3 +137,4 @@ function create() {
             console.log(err);
         }
     })
+}
