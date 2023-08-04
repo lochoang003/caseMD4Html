@@ -9,7 +9,6 @@ function login() {
         url: "http://localhost:8080/login",
         data: JSON.stringify(useracc),
         success: function (data) {
-            console.log(data.token.status)
             localStorage.setItem("token", data.token);
             localStorage.setItem("user", JSON.stringify(data));
             location.href = "index.html";
@@ -17,7 +16,6 @@ function login() {
         error: function (err) {
             console.log(err);
             $("#error").text("Nhập sai tên tài khoản hoặc mật khẩu").show();
-
         }
     })
 

@@ -32,6 +32,7 @@ Don’t use Winku Yet? <a href="#" title="">Take the tour</a> or <a href="#" tit
 <button class="mtr-btn signup" type="button" onclick="showFormLogin()"><span>Back</span></button>
 
 <button class="mtr-btn signup" type="button" onclick="register()"><span>Register</span></button>
+<!--<button class="mtr-btn signup" type="button" onclick="showFormLogin()"><span>login</span></button>-->
 </div>
 </div>
     `
