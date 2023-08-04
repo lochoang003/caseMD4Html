@@ -49,7 +49,6 @@ function getAllPostOneUserAcc(id) {
 function showPostUserAcc(data){
     let str = ``
     for (const post of data) {
-        console.log(post)
         str += `
 <div class="central-meta item" >
 <div class="user-post" >
@@ -78,7 +77,7 @@ function showPostUserAcc(data){
 														<p>
 														${post.video}
 </p>
-														<a href="#" title="">www.sample.com</a>
+	
 													</div>		
 													<div class="we-video-info">
 														<ul>
@@ -107,6 +106,9 @@ function showPostUserAcc(data){
 																	<ins>200</ins>
 																</span>
 															</li>
+															<li>
+															<a class="btn btn-warning" href="edit-post.html?postId=${post.id}">Edit</a></li>
+															<li><a class="btn btn-danger" id="deleteUserAcc" data-id="${post.id}">Delete</a></li>
 															<li class="social-media">
 																<div class="menu">
 																  <div class="btn trigger"><i class="fa fa-share-alt"></i></div>
@@ -146,7 +148,31 @@ function showPostUserAcc(data){
 											</div>
 											</div>
 											</div>  
+											
         `
+
     }
     $("#postDetail").html(str)
+
 }
+
+$(document).on("click", "#deleteUserAcc", function() {
+    const postId = $(this).data("id");
+    // Gửi yêu cầu AJAX để xóa bài đăng với postId
+    $.ajax({
+        type: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        url: "http://localhost:8080/posts/deletePost/" + postId,
+        success: function (data) {
+            $(this).closest('.central-meta.item').remove();
+            $("#postDetail").html(str)
+        },
+        error: function (err) {
+            console.log(err)
+        }
+    });
+});
