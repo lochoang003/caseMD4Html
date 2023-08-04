@@ -10,7 +10,9 @@ function getAll() {
         success: function (data) {
             let user = localStorage.getItem("user");
             let userOj = JSON.parse(user)
+            let user1 = JSON.parse(user)
             imgUser(userOj)
+            imgUser1(user1)
 
             showPost(data);
         },
@@ -20,14 +22,24 @@ function getAll() {
     })
 }
 function imgUser(userOj) {
-    let str = `<img width="50" height="10" src="${userOj.avatar}" alt="">`
+    let str = `<img width="50" height="10" src="${userOj.avatar}" alt="" >`
     $("#imgUser").html(str)
 
 }
+function imgUser1(user1) {
+    let str = `<img width="50" height="10" src="${user1.avatar}" alt=""> 
+
+`
+    $("#imgUser1").html(str)
+
+}
+
+
 function  showPost(arr) {
     let str = "";
     for (const p of arr) {
         str += `
+
         <div class="user-post" >
 											<div class="friend-info">
 												<figure>
@@ -50,50 +62,50 @@ function  showPost(arr) {
 															</span>
 															</li>
 															<li>
-															<span class="like" data-toggle="tooltip" title="like">
+															<span class="like" data-toggle="tooltip" title="like" onclick='like(${JSON.stringify(p)})'>
 																<i class="ti-heart"></i>
-																<ins>${p.likeCount}</ins>
+																<ins id="likeCount_${p.id}">${p.likeCount}</ins>
 															</span>
 															</li>
 															<li>
-															<span class="dislike" data-toggle="tooltip" title="dislike">
+															<span class="dislike" data-toggle="tooltip" title="share" onclick='chiase(${JSON.stringify(p)})' >
 																<i class="ti-heart-broken"></i>
-																<ins>${p.shareCount}</ins>
+																<ins id="shareCount_${p.id}">${p.shareCount}</ins>
 															</span>
 															</li>
-															<li class="social-media">
-																<div class="menu">
-																	<div class="btn trigger"><i class="fa fa-share-alt"></i></div>
-																	<div class="rotater">
-																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
-																	</div>
-																	<div class="rotater">
-																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
-																	</div>
-																	<div class="rotater">
-																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
-																	</div>
-																	<div class="rotater">
-																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
-																	</div>
-																	<div class="rotater">
-																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
-																	</div>
-																	<div class="rotater">
-																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
-																		</div>
-																	</div>
-																	<div class="rotater">
-																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
-																		</div>
-																	</div>
-																	<div class="rotater">
-																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
-																		</div>
-																	</div>
+<!--															<li class="social-media">-->
+<!--																<div class="menu">-->
+<!--																	<div class="btn trigger"><i class="fa fa-share-alt"></i></div>-->
+<!--																	<div class="rotater">-->
+<!--																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>-->
+<!--																	</div>-->
+<!--																	<div class="rotater">-->
+<!--																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>-->
+<!--																	</div>-->
+<!--																	<div class="rotater">-->
+<!--																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>-->
+<!--																	</div>-->
+<!--																	<div class="rotater">-->
+<!--																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>-->
+<!--																	</div>-->
+<!--																	<div class="rotater">-->
+<!--																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>-->
+<!--																	</div>-->
+<!--																	<div class="rotater">-->
+<!--																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>-->
+<!--																		</div>-->
+<!--																	</div>-->
+<!--																	<div class="rotater">-->
+<!--																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>-->
+<!--																		</div>-->
+<!--																	</div>-->
+<!--																	<div class="rotater">-->
+<!--																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>-->
+<!--																		</div>-->
+<!--																	</div>-->
 
-																</div>
-															</li>
+<!--																</div>-->
+<!--															</li>-->
 														</ul>
 													</div>
 													<div class="description">
@@ -135,3 +147,6 @@ function create() {
         }
     })
         }
+
+
+
