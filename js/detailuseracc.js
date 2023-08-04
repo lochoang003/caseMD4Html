@@ -158,21 +158,23 @@ function showPostUserAcc(data){
 
 $(document).on("click", "#deleteUserAcc", function() {
     const postId = $(this).data("id");
-    // Gửi yêu cầu AJAX để xóa bài đăng với postId
-    $.ajax({
-        type: "POST",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
-        },
-        url: "http://localhost:8080/posts/deletePost/" + postId,
-        success: function (data) {
-            $(this).closest('.central-meta.item').remove();
-            $("#postDetail").html(str)
-        },
-        error: function (err) {
-            console.log(err)
-        }
-    });
+    console.log(postId)
+    if (confirm("Bạn có chắc chắn muốn xoá đối tượng này?")) {
+        $.ajax({
+            type: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            url: "http://localhost:8080/posts/deletePost/" + postId,
+            success: function () {
+                alert("Đã xoá đối tượng thành công!");
+                window.location.reload();
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        });
+    }
 });

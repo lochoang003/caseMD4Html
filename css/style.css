@@ -1481,6 +1481,11 @@ form button {
     cursor: pointer;
     transition: all 0.2s linear 0s;
 }
+.we-video-info > ul li span.comment {
+    color: black;
+    cursor: pointer;
+    transition: all 0.2s linear 0s;
+}
 
 .we-video-info > ul li span ins {
     font-size: 11px;
@@ -6379,6 +6384,7 @@ figure.aligncenter,
 /*--- comments section ---*/
 
 .comment-area {
+    color: #323232;
     float: left;
     width: 100%;
 }
