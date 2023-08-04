@@ -1,9 +1,8 @@
 function login() {
-    let username = $("#username").val();
-    let password = $("#password").val();
+    let username = $("#username2").val();
+    let password = $("#password2").val();
     let useracc = {username, password};
     console.log(0)
-
     console.log(useracc)
     $.ajax({
         type: "Post",
@@ -19,7 +18,6 @@ function login() {
         error: function (err) {
             console.log(err);
             $("#error").text("Nhập sai tên tài khoản hoặc mật khẩu").show();
-
         }
     })
 

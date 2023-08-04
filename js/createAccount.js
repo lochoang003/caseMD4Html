@@ -5,22 +5,22 @@ function showFormRegister(){
 <p>
 Don’t use Winku Yet? <a href="#" title="">Take the tour</a> or <a href="#" title="">Join now</a>
 </p>
-<div>
-<div class="form-group">\t
+<form>
+<div class="form-group">
  <input type="text" id="fullname" required="required"/>
-  <label class="control-label" for="input">Full Name</label><i class="mtrl-select"></i>
+  <label class="control-label" for="fullname">Full Name</label><i class="mtrl-select"></i>
 </div>
-<div class="form-group">\t
+<div class="form-group">
   <input type="text" id="username" required="required"/>
- <label class="control-label" for="input">User Name</label><i class="mtrl-select"></i>
+ <label class="control-label" for="username">User Name</label><i class="mtrl-select"></i>
 </div>
-<div class="form-group">\t
-  <input type="password" id="password" required="required"/>
- <label class="control-label" for="input">Password</label><i class="mtrl-select"></i>
+<div class="form-group">
+  <input type="password" id="password"  required="required"/>
+ <label class="control-label" for="password">Password</label><i class="mtrl-select"></i>
 </div>
-<div class="form-group">\t
+<div class="form-group">
   <input type="email" id="email"  required="required"/>
- <label class="control-label" for="input">Email</label><i class="mtrl-select"></i>
+ <label class="control-label" for="email">Email</label><i class="mtrl-select"></i>
 </div>
 <div class="checkbox">
   <label>
@@ -32,7 +32,7 @@ Don’t use Winku Yet? <a href="#" title="">Take the tour</a> or <a href="#" tit
 <button class="mtr-btn signup" type="button" onclick="register()"><span>Register</span></button>
 <!--<button class="mtr-btn signup" type="button" onclick="showFormLogin()"><span>login</span></button>-->
 </div>
-</div>
+</form>
     `
     document.getElementById("displayFormRegister").innerHTML = form;
 }
@@ -41,9 +41,14 @@ function register(){
     let pass = $('#password').val();
     let email = $('#email').val();
     let fullname = $('#fullname').val();
-    let acc = {};
+
+    console.log("Username:", username);
+    console.log("Password:", pass);
+    console.log("Email:", email);
+    console.log("Fullname:", fullname);
+    let acc = {}
     // Kiểm tra các trường dữ liệu nhập
-    if (username !== '' && pass !== '' && email !== '' && fullname !== '') {
+    if (username !== '' && pass !=='' && email !=='' && fullname !== '') {
         acc = {
             username: username,
             password: pass,
@@ -58,7 +63,8 @@ function register(){
             type: "POST",
             data: JSON.stringify(acc),
             url: "http://localhost:8080/register",
-            success: function (data) {
+            success: function () {
+
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
@@ -66,8 +72,8 @@ function register(){
                     showConfirmButton: false,
                     timer: 1500
                 });
-                // window.location.reload();
-                location.href = "landing.html";
+                window.location.reload();
+                // location.href = "landing.html";
             },
             error: function () {
                 alert("Có lỗi xảy ra. Vui lòng thử lại sau.");
@@ -84,13 +90,13 @@ function showFormLogin(){
 <p>
 Don’t use Winku Yet? <a href="#" title="">Take the tour</a> or <a href="#" title="">Join now</a>
 </p>
-<div>
+<form>
 <div class="form-group">\t
-  <input type="text" id="username" required="required"/>
+  <input type="text" id="username2" required="required"/>
  <label class="control-label" for="input">Username</label><i class="mtrl-select"></i>
 </div>
 <div class="form-group">\t
-  <input type="password" id="password" required="required"/>
+  <input type="password" id="password2" required="required"/>
  <label class="control-label" for="input">Password</label><i class="mtrl-select"></i>
 </div>
 <div class="checkbox">
@@ -103,7 +109,7 @@ Don’t use Winku Yet? <a href="#" title="">Take the tour</a> or <a href="#" tit
 <button class="mtr-btn signin" type="button" onclick="login()"><span>Login</span></button>
 <button class="mtr-btn signup" type="button" onclick="showFormRegister()"><span>Register</span></button>
 </div>
-</div>`
+</form>`
     document.getElementById("loginFormContainer").innerHTML = form;
 }
 showFormLogin()

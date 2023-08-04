@@ -3,7 +3,8 @@ function getAll() {
         type: "GET",
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            // 'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
         url: "http://localhost:8080/posts",
         success: function (data) {
