@@ -236,4 +236,3 @@ function deleteFriendRequest(friendId,userAccId) {
         }
     });
 }
-
