@@ -96,7 +96,6 @@
             shareCount: shareCount
 
         }
-        console.log(post)
         $.ajax({
             type: "POST",
             headers: {
@@ -111,7 +110,6 @@
                 const userAcc = localStorage.getItem('user');
                let userAccOjb = JSON.parse(userAcc)
                 let userAccId = userAccOjb.id
-                console.log(userAccId)
                 window.location.href = `time-line.html?userAccId=` + userAccId;
             },
             error: function (err) {
