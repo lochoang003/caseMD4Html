@@ -28,7 +28,9 @@ function  showPost(arr) {
     let str = "";
     for (const p of arr) {
         str += `
+<div>
         <div class="user-post" >
+    
 											<div class="friend-info">
 												<figure>
 													<img src="${p.img}" alt="">
@@ -37,10 +39,17 @@ function  showPost(arr) {
                                                     <ins><a href="time-line.html?userAccId=${p.userAcc.id}" >${p.userAcc.fullName}</a></ins>
 													<span>${p.createDate}</span>
 												</div>
+												<div class="description">
+													
+													<p> ${p.content}
+													</p>
+												</div>
 
 												<div class="post-meta">
 													<img src="${p.img}" alt="">
+													</div>
 													<div class="we-video-info">
+													
 														<ul>
 														
 															<li onclick="showComment(${p.id})">
@@ -98,9 +107,7 @@ function  showPost(arr) {
 													</div>
 													<div class="description">
 
-<p>
- ${p.content}
-</p>
+
 </div>
 </div>
 </div>

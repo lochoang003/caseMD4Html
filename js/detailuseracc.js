@@ -14,6 +14,7 @@ $(document).ready(function() {
             avatarUserAcc(data.avatar)
             getAllPostOneUserAcc(id)
 
+
         },
         error: function (err) {
             console.log("loi")
@@ -158,8 +159,7 @@ function showPostUserAcc(data){
 
 $(document).on("click", "#deleteUserAcc", function() {
     const postId = $(this).data("id");
-    console.log(postId)
-    if (confirm("Bạn có chắc chắn muốn xoá đối tượng này?")) {
+    if (confirm("Bạn có chắc chắn muốn xoá bài viết này?")) {
         $.ajax({
             type: "POST",
             headers: {
@@ -169,7 +169,7 @@ $(document).on("click", "#deleteUserAcc", function() {
             },
             url: "http://localhost:8080/posts/deletePost/" + postId,
             success: function () {
-                alert("Đã xoá đối tượng thành công!");
+                alert("Đã xoá bài viết thành công!");
                 window.location.reload();
             },
             error: function (err) {
@@ -178,3 +178,7 @@ $(document).on("click", "#deleteUserAcc", function() {
         });
     }
 });
+function backhome(){
+    console.log(1)
+    window.location.href = `index.html`
+}
