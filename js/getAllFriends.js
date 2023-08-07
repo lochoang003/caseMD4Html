@@ -1,3 +1,4 @@
+showFormListFriends()
 function showFormListFriends() {
     $.ajax({
         url: 'http://localhost:8080/api/getAllUsers', // Địa chỉ URL của API
@@ -8,6 +9,7 @@ function showFormListFriends() {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
         success: function (data) {
+            console.log(1)
             // Xử lý phản hồi từ máy chủ
             // Lấy thông tin về tài khoản đang đăng nhập từ local storage
             const currentUser = JSON.parse(localStorage.getItem('user'));
@@ -45,7 +47,7 @@ function showFormListFriends() {
     });
 }
 
-showFormListFriends()
+
 
 function sendAddFriend(currentUser, targetUser) {
     var data = {
@@ -71,7 +73,9 @@ function sendAddFriend(currentUser, targetUser) {
                 showConfirmButton: false,
                 timer: 1500
             });
+
         },
+
         error: function (xhr, status, error) {
             // Xử lý lỗi nếu có
             console.log(error);
@@ -83,8 +87,6 @@ function showFormFriendsRequets() {
     // Lấy thông tin người dùng từ localStorage
     let user = JSON.parse(localStorage.getItem('user'));
     let loggedInUserId = user.id;
-
-
     $.ajax({
         url: 'http://localhost:8080/api/friendRequests', // Địa chỉ URL của API
         type: 'get',
@@ -93,12 +95,12 @@ function showFormFriendsRequets() {
         headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
-        // data: JSON.stringify(data),
+        data: JSON.stringify(loggedInUserId),
         success: function (response) {
             console.log(response)
-            let form = "";
+            let forms = "";
             for (let i = 0; i < response.length; i++) {
-                form+= `
+                forms+= `
                     <li>
                         <div class="nearly-pepls">
                         
@@ -109,8 +111,10 @@ function showFormFriendsRequets() {
                                 <h4><a href="#" title="">${response[i].userAcc.fullName}</a></h4>
                                 <span>${response[i].userAcc.description}</span>
                                <!-- Truyền id của tài khoản đang đăng nhập vào hàm unfriend -->
-                                <a href="#" type="button" class="add-butn more-action" data-ripple=""
-                                 onclick="unfriend(${response[i].userAcc.id})"> delete Request </a>
+                               <a href="#" type="button" class="add-butn more-action" data-ripple=""
+                        onclick="deleteFriendRequest(${response[i].friend.id}, ${response[i].userAcc.id});">
+                         delete Request</a>
+
                                 <a href="#"  type="button" class="add-butn" data-ripple=""
                                  onclick="confirmFrienRequest(${response[i].friend.id},
                                 ${response[i].userAcc.id})">Confirm</a>
@@ -118,7 +122,7 @@ function showFormFriendsRequets() {
                         </div>
                     </li>
          `
-                document.getElementById("friendRequest").innerHTML = form;
+                document.getElementById("listFriendRequest").innerHTML = forms
             }
         },
         error: function (xhr, status, error) {
@@ -135,7 +139,8 @@ function unfriend(userAccId){
         senderId: userAccId,
         receiverId: idFriend
     }
-    console.log(data)
+
+
          $.ajax({
                              url: 'http://localhost:8080/api/unfriend', // Địa chỉ URL của API
                              type: 'POST',
@@ -168,7 +173,7 @@ function confirmFrienRequest(friendId,userAccId){
         senderId: userAccId,
         receiverId:  friendId
     }
-    console.log(data)
+
          $.ajax({
              url: 'http://localhost:8080/api/acceptFriendRequest', // Địa chỉ URL của API
                              type: 'POST',
@@ -195,3 +200,40 @@ function confirmFrienRequest(friendId,userAccId){
                              }
                          });
 }
+
+function deleteFriendRequest(friendId,userAccId) {
+
+    let data = {
+        senderId: userAccId,
+        receiverId:  friendId
+    }
+
+    console.log(data)
+
+    $.ajax({
+        url: 'http://localhost:8080/api/delFriendRequests', // Địa chỉ URL của API
+        type: 'post', // Sử dụng phương thức DELETE để xóa lời mời
+        dataType: 'json',
+        contentType: 'application/json',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        data: JSON.stringify(data),
+        success: function () {
+            console.log(1)
+            // Xử lý phản hồi từ máy chủ (trong trường hợp này là thông báo "Đã xóa lời mời kết bạn thành công.")
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: "xóa lời mời kết bạn thành công",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        },
+        error: function (xhr, status, error) {
+            // Xử lý lỗi nếu có
+            console.log(error);
+        }
+    });
+}
+
