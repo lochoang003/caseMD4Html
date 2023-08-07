@@ -84,7 +84,7 @@ function createCmt(idPost){
         post: {
             id: idPost
         }
-    }
+    };
     $.ajax({
         type: "POST",
         headers: {
@@ -94,13 +94,6 @@ function createCmt(idPost){
         },
         url: "http://localhost:8080/comment/save",
         data:JSON.stringify(comment),
-        succes: function (){
-            window.location.href = `index.html`
-        },
-        error: function () {
-            console.log(err);
-        }
-
-    })
+    });
 
 }

@@ -2,19 +2,20 @@
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
 	<title>Winku Social Network Toolkit</title>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<link rel="icon" href="../images/fav.png" type="image/png" sizes="16x16">
-	<script src="websocket.js"></script> <!-- Bao gồm file JavaScript chứa kết nối WebSocket -->
-    <link rel="stylesheet" href="../css/main.min.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/color.css">
-    <link rel="stylesheet" href="../css/responsive.css">
+
+	<link rel="stylesheet" href="../css/main.min.css">
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="../css/color.css">
+	<link rel="stylesheet" href="../css/responsive.css">
+	<script src="../js/edit-password-useracc.js"></script>
 
 </head>
 <body>
@@ -210,8 +211,8 @@
 	</div><!-- responsive header -->
 
 	<div class="topbar stick">
-		<div class="logo">
-			<a title="" href="newsfeed.html"><img src="images/logo.png" alt=""></a>
+		<div class="logo" onclick="backhome()">
+			<a ><img src="images/logo.png" alt=""></a>
 		</div>
 
 		<div class="top-area">
@@ -420,7 +421,7 @@
 				</li>
 			</ul>
 			<div class="user-img">
-				<img src="images/resources/admin.jpg" alt="">
+				<div class="userAvatar1"></div>
 				<span class="status f-online"></span>
 				<div class="user-setting">
 					<a href="#" title=""><span class="status f-online"></span>online</a>
@@ -568,36 +569,18 @@
 
 										</figure>
 										<div class="newpst-input">
-											<form method="post" enctype="multipart/form-data"  action="/posts/createPost">
-
-												<textarea id="content" rows="4" placeholder="bạn đang nghĩ gì"></textarea>
-												<div class="attachments" >
-													<ul>
-														<li>
-															<i class="fa fa-image"></i>
-															<label class="fileContainer" >
-																<input id="img" type="file" name="file">
-															</label>
-														</li>
-														<li>
-															<i class="fa fa-video-camera"></i>
-															<label class="fileContainer">
-																<input id="video" type="file" >
-															</label>
-														</li>
-														<li>
-															<button type="button" onclick="create()" class="btn btn-primary">Post</button>
-														</li>
-													</ul>
-												</div>
-
+											<form id="createPostForm" enctype="multipart/form-data">
+												<textarea id="content" rows="4" name="content" placeholder="Bạn đang nghĩ gì"></textarea>
+												<input type="file" name="file">
+												<input type="hidden" name="idUser" id="idUser">
+												<button type="submit">Post</button>
 											</form>
 										</div>
 									</div>
 								</div><!-- add post new box -->
 								<div class="loadMore">
-									<div class="central-meta item" id="post">
-										<div class="user-post" >
+									<div class="central-meta item">
+										<div class="user-post" id="post">
 											<div class="friend-info">
 												<figure>
 													<img src="images/resources/friend-avatar10.jpg" alt="">
@@ -606,7 +589,6 @@
 													<ins><a href="time-line.html" title="" >Janice Griffith</a></ins>
 													<span>published: june,2 2018 19:PM</span>
 												</div>
-
 												<div class="post-meta">
 													<img src="images/resources/user-post.jpg" alt="">
 													<div class="we-video-info">
@@ -1196,9 +1178,14 @@
 <script src="js/map-init.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI"></script>
 
-</body>	
+</body>
 
 </html>
 <script src="../js/post.js"></script>
 <script src="../js/comment.js"></script>
+<script>
+	let user = localStorage.getItem("user");
+	let userOj = JSON.parse(user);
+	$("#idUser").val(userOj.id);
+</script>
 

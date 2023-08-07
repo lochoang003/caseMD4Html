@@ -11,7 +11,7 @@ $(document).ready(function (){
         },
         url: "http://localhost:8080/userAccDetail/" + userAccId,
         success: function (data) {
-            $("#fullName").html(data.fullName);
+            $(".fullName").html(data.fullName);
            avatarUserAcc(data.avatar)
 
         },
@@ -82,6 +82,9 @@ function changePass(){
 
 
 
+}
+function backhome(){
+    window.location.href = `index.html`
 }
 
 

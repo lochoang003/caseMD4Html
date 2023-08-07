@@ -179,6 +179,5 @@ $(document).on("click", "#deleteUserAcc", function() {
     }
 });
 function backhome(){
-    console.log(1)
     window.location.href = `index.html`
 }

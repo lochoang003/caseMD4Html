@@ -19,21 +19,21 @@ function getAll() {
         }
     })
 }
+
 function imgUser(userOj) {
     let str = `<img width="50" height="10" src="${userOj.avatar}" alt="">`
     $("#imgUser").html(str)
 
 }
-function  showPost(arr) {
+
+function showPost(arr) {
     let str = "";
     for (const p of arr) {
         str += `
-<div>
         <div class="user-post" >
-    
 											<div class="friend-info">
 												<figure>
-													<img src="${p.img}" alt="">
+													<img src="${p.userAcc.avatar}" alt="1">
 												</figure>
 												<div class="friend-name">
                                                     <ins><a href="time-line.html?userAccId=${p.userAcc.id}" >${p.userAcc.fullName}</a></ins>
@@ -46,10 +46,8 @@ function  showPost(arr) {
 												</div>
 
 												<div class="post-meta">
-													<img src="${p.img}" alt="">
-													</div>
+													<div id="imageContainer${p.id}"></div>
 													<div class="we-video-info">
-													
 														<ul>
 														
 															<li onclick="showComment(${p.id})">
@@ -116,29 +114,55 @@ function  showPost(arr) {
         `
     }
     document.getElementById("post").innerHTML = str;
+    for (const p of arr) {
+        let imageContainer = document.getElementById(`imageContainer` + p.id);
 
+        if (p.img != null) {
+            let image = document.createElement("img");
+
+            // Chuyển đổi mảng byte thành chuỗi base64
+            const binaryString = atob(p.img);
+            const length = binaryString.length;
+            const uint8Array = new Uint8Array(length);
+            for (let i = 0; i < length; i++) {
+                uint8Array[i] = binaryString.charCodeAt(i);
+            }
+            let base64String = btoa(String.fromCharCode.apply(null, uint8Array));
+            image.src = `data:image/png;base64,${base64String}`;
+            imageContainer.appendChild(image);
+        }
+
+    }
 }
+
 getAll();
 
-function create() {
-    let content = $("#content").val();
-    let img = $("#img").val();
-    let video = $("#video").val();
-    let post = {content,img,video}
-    $.ajax({
-        type: "POST",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
-        },
-        url: "http://localhost:8080/posts/createPost",
-        data: JSON.stringify(post),
-        success: function () {
-            getAll();
-        },
-        error: function (err) {
-            console.log(err);
-        }
-    })
-        }
+$(document).ready(function () {
+    $('#createPostForm').submit(function (event) {
+        event.preventDefault();
+        let form = document.getElementById("createPostForm");
+        let formData = new FormData(form);
+        console.log(formData.get("file"))
+        $.ajax({
+            type: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            url: "http://localhost:8080/posts/createPost",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (posts) {
+                console.log("Create post successful!");
+                showPost(posts)
+                form.reset();
+            },
+            error: function (err) {
+                console.log("Create post error:", err);
+            }
+        });
+    });
+});
+
+
