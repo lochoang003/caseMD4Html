@@ -61,8 +61,7 @@ function showPostUserAcc(data){
 													<ins><a href="time-line.html" title="" class="userAccFullName">${post.userAcc.fullName}</a></ins>
 													<span>${post.createDate}</span>
 												</div>
-												<div class="description">
-														
+												<div class="description">													
 														<p>
 														${post.content}
 														</p>
@@ -81,13 +80,6 @@ function showPostUserAcc(data){
 													</div>		
 													<div class="we-video-info">
 														<ul>
-															
-															<li>
-																<span class="views" data-toggle="tooltip" title="views">
-																	<i class="fa fa-eye"></i>
-																	<ins>1.2k</ins>
-																</span>
-															</li>
 															<li>
 																<span class="comment" data-toggle="tooltip" title="Comments">
 																	<i class="fa fa-comments-o"></i>
@@ -103,7 +95,7 @@ function showPostUserAcc(data){
 															<li>
 																<span class="dislike" data-toggle="tooltip" title="dislike">
 																	<i class="ti-heart-broken"></i>
-																	<ins>200</ins>
+																	<ins>0</ins>
 																</span>
 															</li>
 															<li>
@@ -161,7 +153,7 @@ $(document).on("click", "#deleteUserAcc", function() {
     console.log(postId)
     if (confirm("Bạn có chắc chắn muốn xoá đối tượng này?")) {
         $.ajax({
-            type: "POST",
+            type: "get",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -178,3 +170,107 @@ $(document).on("click", "#deleteUserAcc", function() {
         });
     }
 });
+
+function  sharePost(){
+    let post = JSON.parse(localStorage.getItem("sharePost"))
+    let str = "";
+    str += `
+<div class="central-meta item" >
+<div class="user-post" >
+        <div class="friend-info">
+												<figure>
+													<img src="${post.userAcc.avatar}" alt="">
+													
+												</figure>
+												<div class="friend-name">
+													<ins><a href="time-line.html" title="" class="userAccFullName">${post.userAcc.fullName}</a></ins>
+													<span>${post.createDate}</span>
+												</div>
+												<div class="description">
+														
+														<p>
+														${post.content}
+														</p>
+													</div>
+												<div class="post-meta">
+													<div class="linked-image align-left">
+													<img src="${post.img}">
+													
+													</div>
+													<div class="detail">
+														<span></span>
+														<p>
+														${post.video}
+</p>
+	
+													</div>		
+													<div class="we-video-info">
+														<ul>
+															
+														
+															<li>
+																<span class="comment" data-toggle="tooltip" title="Comments">
+																	<i class="fa fa-comments-o"></i>
+																	<ins>0</ins>
+																</span>
+															</li>
+															<li>
+																<span class="like" data-toggle="tooltip" title="like">
+																	<i class="ti-heart"></i>
+																	<ins>0</ins>
+																</span>
+															</li>
+															<li>
+																<span class="dislike" data-toggle="tooltip" title="dislike">
+																	<i class="ti-heart-broken"></i>
+																	<ins>0</ins>
+																</span>
+															</li>
+															<li>
+															<a class="btn btn-warning" href="edit-post.html?postId=${post.id}">Edit</a></li>
+															<li><a class="btn btn-danger" id="deleteUserAcc" data-id="${post.id}">Delete</a></li>
+															<li class="social-media">
+																<div class="menu">
+																  <div class="btn trigger"><i class="fa fa-share-alt"></i></div>
+																  <div class="rotater">
+																	<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
+																  </div>
+																  <div class="rotater">
+																	<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
+																  </div>
+																  <div class="rotater">
+																	<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
+																  </div>
+																  <div class="rotater">
+																	<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
+																  </div>
+																  <div class="rotater">
+																	<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
+																  </div>
+																  <div class="rotater">
+																	<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
+																	</div>
+																  </div>
+																	<div class="rotater">
+																	<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
+																	</div>
+																  </div>
+																  <div class="rotater">
+																	<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
+																	</div>
+																  </div>
+
+																</div>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+											</div>
+											</div>  
+											
+        `
+    $("#postDetail").html(str)
+
+}
+sharePost()

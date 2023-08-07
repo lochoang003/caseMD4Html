@@ -1,6 +1,7 @@
 
 function like(p) {
     p.likeCount +=1;
+    console.log(p.likeCount);
     $.ajax({
         type: "POST",
         headers: {
