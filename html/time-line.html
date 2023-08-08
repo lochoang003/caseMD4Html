@@ -424,7 +424,7 @@
 				</li>
 			</ul>
 			<div class="user-img">
-				<div class="userAvatar1">
+				<div class="userAvatar1" >
 
 				</div>
 <!--				<img src="../images/resources/admin.jpg" alt="">-->
@@ -650,39 +650,11 @@
 <!--												<img src="../images/resources/admin2.jpg" alt="">-->
 											</figure>
 											<div class="newpst-input">
-												<form method="post">
-													<textarea rows="2" placeholder="write something"></textarea>
-													<div class="attachments">
-														<ul>
-															<li>
-																<i class="fa fa-music"></i>
-																<label class="fileContainer">
-																	<input type="file">
-																</label>
-															</li>
-															<li>
-																<i class="fa fa-image"></i>
-																<label class="fileContainer">
-																	<input type="file">
-																</label>
-															</li>
-															<li>
-																<i class="fa fa-video-camera"></i>
-																<label class="fileContainer">
-																	<input type="file">
-																</label>
-															</li>
-															<li>
-																<i class="fa fa-camera"></i>
-																<label class="fileContainer">
-																	<input type="file">
-																</label>
-															</li>
-															<li>
-																<button type="submit">Publish</button>
-															</li>
-														</ul>
-													</div>
+												<form id="createPostForm" enctype="multipart/form-data">
+													<textarea id="content" rows="4" name="content" placeholder="Bạn đang nghĩ gì"></textarea>
+													<input type="file" name="file">
+													<input type="hidden" name="idUser" id="idUser">
+													<button type="submit">Post</button>
 												</form>
 											</div>
 										</div>
@@ -1037,4 +1009,6 @@
 
 </html>
 <script src="../js/detailuseracc.js"></script>
+<script src="../js/comment.js"></script>
+
 

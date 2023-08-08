@@ -21,96 +21,104 @@ function getAll() {
 }
 
 function imgUser(userOj) {
-    let str = `<img width="50" height="10" src="${userOj.avatar}" alt="">`
+    let str = `<a href="time-line.html?userAccId=${userOj.id}" ><img width="50" height="10" src="${userOj.avatar}" alt=""></a>`
     $("#imgUser").html(str)
 
 }
 
 function showPost(arr) {
     let str = "";
-    for (const p of arr) {
+    for (const post of arr) {
         str += `
-        <div class="user-post" >
-											<div class="friend-info">
+<div class="central-meta item" >
+<div class="user-post" >
+        <div class="friend-info">
 												<figure>
-													<img src="${p.userAcc.avatar}" alt="1">
+													<a  href="time-line.html?userAccId=${post.userAcc.id}"> <img src="${post.userAcc.avatar}" alt=""></a>
+													
 												</figure>
 												<div class="friend-name">
-                                                    <ins><a href="time-line.html?userAccId=${p.userAcc.id}" >${p.userAcc.fullName}</a></ins>
-													<span>${p.createDate}</span>
+													<ins><a  href="time-line.html?userAccId=${post.userAcc.id}">${post.userAcc.fullName}</a></ins>
+													<span>${post.createDate}</span>
 												</div>
 												<div class="description">
-													
-													<p> ${p.content}
-													</p>
-												</div>
-
+														
+														<p>
+														${post.content}
+														</p>
+													</div>
+											
 												<div class="post-meta">
-													<div id="imageContainer${p.id}"></div>
+													<div id="imageContainer${post.id}"></div>
+													<div class="we-video-info">
+											
+
+													</div>		
 													<div class="we-video-info">
 														<ul>
-														
-															<li onclick="showComment(${p.id})">
+															
+							
+															<li onclick="showComment(${post.id})">
 															<span class="comment" data-toggle="tooltip" title="Comments">
 																<i class="fa fa-comments-o"></i>
-																<ins>${p.commentCount}</ins>
+																<ins>${post.commentCount}</ins>
 															</span>
 															</li>
 															<li>
-															<span class="like" data-toggle="tooltip" title="like">
-																<i class="ti-heart"></i>
-																<ins>${p.likeCount}</ins>
-															</span>
+																<span class="like" data-toggle="tooltip" title="like">
+																	<i class="ti-heart"></i>
+																	<ins>${post.likeCount}</ins>
+																</span>
 															</li>
-															<li>
-															<span class="dislike" data-toggle="tooltip" title="dislike">
-																<i class="ti-heart-broken"></i>
-																<ins>${p.shareCount}</ins>
-															</span>
-															</li>
+														
+											
+														
 															<li class="social-media">
 																<div class="menu">
-																	<div class="btn trigger"><i class="fa fa-share-alt"></i></div>
-																	<div class="rotater">
-																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
+																  <div class="btn trigger"><i class="fa fa-share-alt"></i></div>
+																  <div class="rotater">
+																	<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
+																  </div>
+																  <div class="rotater">
+																	<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
+																  </div>
+																  <div class="rotater">
+																	<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
+																  </div>
+																  <div class="rotater">
+																	<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
+																  </div>
+																  <div class="rotater">
+																	<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
+																  </div>
+																  <div class="rotater">
+																	<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
 																	</div>
+																  </div>
 																	<div class="rotater">
-																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
+																	<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
 																	</div>
-																	<div class="rotater">
-																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
+																  </div>
+																  <div class="rotater">
+																	<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
 																	</div>
-																	<div class="rotater">
-																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
-																	</div>
-																	<div class="rotater">
-																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
-																	</div>
-																	<div class="rotater">
-																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
-																		</div>
-																	</div>
-																	<div class="rotater">
-																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
-																		</div>
-																	</div>
-																	<div class="rotater">
-																		<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
-																		</div>
-																	</div>
+																  </div>
 
 																</div>
 															</li>
+															
+
 														</ul>
+														<div class="coment-area">
+                                                        <div id="commentP${post.id}"></div>
+                                                        </div>
 													</div>
-													<div class="description">
-
-
-</div>
-</div>
-</div>
-<div class="coment-area">
-<div id="commentP${p.id}"></div>
+												</div>
+											</div>
+											</div>
+											</div>  
+											
+ 
         `
     }
     document.getElementById("post").innerHTML = str;

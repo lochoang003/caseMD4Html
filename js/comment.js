@@ -35,7 +35,7 @@ function commentP(comments, idPost) {
 														</div>
 														<div class="post-comt-box">
 														
-															<form method="post" >
+															
 														
 																<textarea placeholder="Post your comment" id="contentCmt"></textarea>
 																
@@ -44,7 +44,7 @@ function commentP(comments, idPost) {
 																</div>
 																
 																<button style="color: #0b2e13" type="submit" onclick="createCmt(${idPost})">Gửi</button>
-															</form>
+															
 														</div>
 													</li>`
     $("#commentP" + idPost).html(str)
@@ -94,6 +94,13 @@ function createCmt(idPost){
         },
         url: "http://localhost:8080/comment/save",
         data:JSON.stringify(comment),
+        success: function () {
+            showComment(idPost)
+        },
+        error: function (err) {
+            console.log(err);
+        }
     });
+
 
 }

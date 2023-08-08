@@ -13,6 +13,7 @@ $(document).ready(function() {
             $(".userAccFullName").html(data.fullName);
             avatarUserAcc(data.avatar)
             getAllPostOneUserAcc(id)
+            $("#idUser").val(id);
 
 
         },
@@ -39,15 +40,14 @@ function getAllPostOneUserAcc(id) {
         },
         url: "http://localhost:8080/posts/user/" +id,
         success: function (data) {
-
-            showPostUserAcc(data);
+            showPostUserAcc(data,id);
         },
         error: function (err) {
             console.log(err)
         }
     })
 }
-function showPostUserAcc(data){
+function showPostUserAcc(data,id){
     let str = ``
     for (const post of data) {
         str += `
@@ -59,7 +59,7 @@ function showPostUserAcc(data){
 													
 												</figure>
 												<div class="friend-name">
-													<ins><a href="time-line.html" title="" class="userAccFullName">${post.userAcc.fullName}</a></ins>
+													<ins><a class="userAccFullName">${post.userAcc.fullName}</a></ins>
 													<span>${post.createDate}</span>
 												</div>
 												<div class="description">
@@ -68,32 +68,22 @@ function showPostUserAcc(data){
 														${post.content}
 														</p>
 													</div>
+											
 												<div class="post-meta">
-													<div class="linked-image align-left">
-													<img src="${post.img}">
-													
-													</div>
-													<div class="detail">
-														<span></span>
-														<p>
-														${post.video}
-</p>
-	
+													<div id="imageContainer${post.id}"></div>
+													<div class="we-video-info">
+											
+
 													</div>		
 													<div class="we-video-info">
 														<ul>
 															
-															<li>
-																<span class="views" data-toggle="tooltip" title="views">
-																	<i class="fa fa-eye"></i>
-																	<ins>1.2k</ins>
-																</span>
-															</li>
-															<li>
-																<span class="comment" data-toggle="tooltip" title="Comments">
-																	<i class="fa fa-comments-o"></i>
-																	<ins>${post.commentCount}</ins>
-																</span>
+							
+															<li onclick="showComment(${post.id})">
+															<span class="comment" data-toggle="tooltip" title="Comments">
+																<i class="fa fa-comments-o"></i>
+																<ins>${post.commentCount}</ins>
+															</span>
 															</li>
 															<li>
 																<span class="like" data-toggle="tooltip" title="like">
@@ -107,9 +97,10 @@ function showPostUserAcc(data){
 																	<ins>200</ins>
 																</span>
 															</li>
-															<li>
-															<a class="btn btn-warning" href="edit-post.html?postId=${post.id}">Edit</a></li>
-															<li><a class="btn btn-danger" id="deleteUserAcc" data-id="${post.id}">Delete</a></li>
+															<div hidden="hidden" class="hiddenED">
+															<li><a  class="btn btn-warning" href="edit-post.html?postId=${post.id}">Edit</a></li>
+															<li><a  class="btn btn-danger"  data-id="${post.id}">Delete</a></li>
+															</div>
 															<li class="social-media">
 																<div class="menu">
 																  <div class="btn trigger"><i class="fa fa-share-alt"></i></div>
@@ -143,17 +134,49 @@ function showPostUserAcc(data){
 
 																</div>
 															</li>
+															
+
 														</ul>
+														<div class="coment-area">
+                                                        <div id="commentP${post.id}"></div>
+                                                        </div>
 													</div>
 												</div>
 											</div>
 											</div>
 											</div>  
 											
-        `
+     `
+    }
+        $("#postDetail").html(str)
+    const userAcc = localStorage.getItem('user');
+    let userAccOjb = JSON.parse(userAcc);
+    let userAccId = userAccOjb.id;
+    if (id == userAccId){
+        let elements = document.getElementsByClassName("hiddenED");
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].hidden = false;
+        }
+    }
+    for (const p of data) {
+        let imageContainer = document.getElementById(`imageContainer` + p.id);
+
+        if (p.img != null) {
+            let image = document.createElement("img");
+
+            // Chuyển đổi mảng byte thành chuỗi base64
+            const binaryString = atob(p.img);
+            const length = binaryString.length;
+            const uint8Array = new Uint8Array(length);
+            for (let i = 0; i < length; i++) {
+                uint8Array[i] = binaryString.charCodeAt(i);
+            }
+            let base64String = btoa(String.fromCharCode.apply(null, uint8Array));
+            image.src = `data:image/png;base64,${base64String}`;
+            imageContainer.appendChild(image);
+        }
 
     }
-    $("#postDetail").html(str)
 
 }
 
@@ -181,3 +204,32 @@ $(document).on("click", "#deleteUserAcc", function() {
 function backhome(){
     window.location.href = `index.html`
 }
+
+$(document).ready(function () {
+    $('#createPostForm').submit(function (event) {
+        event.preventDefault();
+        let form = document.getElementById("createPostForm");
+        let formData = new FormData(form);
+        console.log(formData.get("file"))
+        $.ajax({
+            type: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            url: "http://localhost:8080/posts/createPost",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (posts) {
+                console.log("Create post successful!");
+                new URLSearchParams(window.location.search).set("userAccId" , posts.id)
+                form.reset();
+            },
+            error: function (err) {
+                console.log("Create post error:", err);
+            }
+        });
+    });
+});
+
